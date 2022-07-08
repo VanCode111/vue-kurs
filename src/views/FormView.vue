@@ -1,32 +1,25 @@
 <template>
     <div class="container">
-        <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
-            class="form"
-            @submit.prevent="submit"
-        >
+        <v-form ref="form" v-model="valid" lazy-validation class="form">
             <v-text-field
                 v-model="title"
-                :counter="10"
                 :rules="nameRules"
-                label="Title"
+                label="Название услуги"
                 required
             ></v-text-field>
 
             <v-text-field
                 v-model="price"
                 :rules="priceRules"
-                label="Price"
+                label="Цена"
                 required
             ></v-text-field>
 
             <v-select
-                v-model="select"
+                v-model="city"
                 :items="items"
-                :rules="[(v) => !!v || 'Item is required']"
-                label="Item"
+                :rules="[(v) => !!v || 'City is required']"
+                label="Город"
                 required
             ></v-select>
 
@@ -34,7 +27,7 @@
                 :disabled="!valid"
                 color="success"
                 class="mr-4 w-100"
-                type="submit"
+                @click="submit"
             >
                 Добавить
             </v-btn>
@@ -49,36 +42,30 @@ export default {
     data: () => ({
         valid: true,
         title: "",
-        nameRules: [
-            (v) => !!v || "Name is required",
-            (v) =>
-                (v && v.length <= 10) || "Name must be less than 10 characters",
-        ],
+        nameRules: [(v) => !!v || "Name is required"],
         price: "",
         priceRules: [
             (v) => !!v || "Price is required",
             (v) => v > 0 || "Цена не может быть отрицательной",
         ],
-        select: null,
-        items: ["Item 1", "Item 2", "Item 3", "Item 4"],
+        city: null,
+        items: ["Москва", "Калининград"],
         checkbox: false,
     }),
 
     methods: {
-        validate() {
-            this.$refs.form.validate();
-        },
-        reset() {
-            this.$refs.form.reset();
-        },
-        resetValidation() {
-            this.$refs.form.resetValidation();
-        },
         ...mapActions(["addCleaning"]),
 
         submit() {
-            console.log(this.price);
-            this.addCleaning({ title: this.title, price: this.price });
+            let city = "";
+            if (this.city === "Москва") {
+                city = 1;
+            } else {
+                city = 2;
+            }
+
+            this.addCleaning({ title: this.title, price: this.price, city });
+            this.$refs.form.reset();
         },
     },
 };

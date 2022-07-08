@@ -2,10 +2,13 @@ import axios from "axios";
 
 export default {
     actions: {
-        async fetchCleanings({ commit, dispatch }, { page, ordered }) {
+        async fetchCleanings(
+            { commit, dispatch },
+            { page, ordered, city = "" }
+        ) {
             try {
                 const res = await fetch(
-                    `http://127.0.0.1:8000/api/cleanings/?page=${page}&ordering=${ordered}`
+                    `http://127.0.0.1:8000/api/cleanings/?page=${page}&ordering=${ordered}&city=${city}`
                 );
                 const cleanings = await res.json();
 
@@ -15,7 +18,7 @@ export default {
                 console.log(e);
             }
         },
-        async addCleaning({ commit, dispatch }, { price, title }) {
+        async addCleaning({ commit, dispatch }, { price, title, city }) {
             console.log(title, price, commit, dispatch);
             try {
                 const res = await axios.post(
@@ -23,7 +26,7 @@ export default {
                     {
                         title: title,
                         price: +price,
-                        city: 1,
+                        city,
                     }
                 );
                 console.log(res);

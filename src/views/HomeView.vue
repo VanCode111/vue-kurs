@@ -1,17 +1,23 @@
 <template>
     <div class="home">
-        <v-container fluid>
-            <v-select v-model="sort" :items="items" label="Select"></v-select>
+        <div class="container">
+            <v-select
+                v-model="sort"
+                :items="items"
+                label="Сортировка"
+            ></v-select>
+
             <div class="home__card" v-for="item in allCleanings" :key="item.id">
                 <CleaningCard
                     :title="item.title"
                     :price="item.price"
+                    :city="item.city"
                 ></CleaningCard>
             </div>
             <div class="text-center">
                 <v-pagination v-model="page" :length="6"></v-pagination>
             </div>
-        </v-container>
+        </div>
     </div>
 </template>
 
@@ -25,7 +31,10 @@ export default {
             page: 1,
             sort: "",
             items: ["Цена (по убыванию)", "Цена (по возрастанию)"],
+            cities: ["Москва", "Калининград"],
             ordered: "",
+            city: "",
+            cityCode: "",
         };
     },
 
@@ -50,10 +59,32 @@ export default {
                 ordered = "price";
             }
             this.ordered = ordered;
-            this.fetchCleanings({ page: this.page, ordered });
+            this.fetchCleanings({
+                page: this.page,
+                ordered,
+                city: this.cityCode,
+            });
         },
         page() {
-            this.fetchCleanings({ page: this.page, ordered: this.ordered });
+            this.fetchCleanings({
+                page: this.page,
+                ordered: this.ordered,
+                city: this.cityCode,
+            });
+        },
+        city() {
+            let city = "";
+            if (this.city === "Москва") {
+                city = 1;
+            } else {
+                city = 2;
+            }
+            this.cityCode = city;
+            this.fetchCleanings({
+                page: this.page,
+                ordered: this.ordered,
+                city: this.cityCode,
+            });
         },
     },
 };
@@ -64,5 +95,11 @@ export default {
     &__card {
         margin-bottom: 20px;
     }
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 0 20px;
 }
 </style>

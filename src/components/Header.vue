@@ -5,7 +5,6 @@
 
             <v-btn to="/addCleaning"> Добавить объявление </v-btn>
             <v-spacer></v-spacer>
-            <v-toolbar-title>Уборка квартир</v-toolbar-title>
 
             <v-menu left bottom> </v-menu>
         </v-app-bar>
