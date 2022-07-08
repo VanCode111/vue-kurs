@@ -6,7 +6,11 @@
                 :items="items"
                 label="Сортировка"
             ></v-select>
-
+            <v-select
+                v-model="city"
+                :items="cities"
+                label="Фильтрация"
+            ></v-select>
             <div class="home__card" v-for="item in allCleanings" :key="item.id">
                 <CleaningCard
                     :title="item.title"
