@@ -8,7 +8,7 @@ export default {
         ) {
             try {
                 const res = await fetch(
-                    `http://127.0.0.1:8000/api/cleanings/?page=${page}&ordering=${ordered}&city=${city}`
+                    `http://vancode111.pythonanywhere.com/api/cleanings/?page=${page}&ordering=${ordered}&city=${city}`
                 );
                 const cleanings = await res.json();
 
@@ -22,7 +22,7 @@ export default {
             console.log(title, price, commit, dispatch);
             try {
                 const res = await axios.post(
-                    `http://127.0.0.1:8000/api/cleanings/`,
+                    `http://vancode111.pythonanywhere.com/api/cleanings/`,
                     {
                         title: title,
                         price: +price,

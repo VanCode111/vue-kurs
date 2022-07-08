@@ -17,8 +17,8 @@
 export default {
     props: {
         title: String,
-        price: String,
-        city: String,
+        price: [String, Number],
+        city: Object,
     },
 };
 </script>
