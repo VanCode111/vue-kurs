@@ -2,14 +2,17 @@
     <v-app>
         <Header class="header" />
         <router-view />
+        <FooterСomponent />
     </v-app>
 </template>
 <script>
 import Header from "./components/Header.vue";
+import FooterСomponent from "./components/FooterComponent.vue";
 
 export default {
     components: {
         Header,
+        FooterСomponent,
     },
 };
 </script>
